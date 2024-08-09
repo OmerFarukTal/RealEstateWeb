@@ -10,6 +10,7 @@ import Content from './Content';
 import Header from './Header';
 import RealEstateList from './property/Property';
 import PropertyHeader from './property/PropertyHeader';
+import UserProperty from './property/UserProperty';
 
 function Copyright() {
   return (
@@ -210,7 +211,9 @@ export default function Paperbase() {
           {selectedPage === "Property" ? <PropertyHeader onDrawerToggle={handleDrawerToggle}/> : <Header onDrawerToggle={handleDrawerToggle}/>}
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             
-            {selectedPage === 'Property' ? <RealEstateList /> : <Content />}
+            {selectedPage === 'Property' ? <RealEstateList /> :
+             selectedPage === 'My Properties' ? <UserProperty/> :
+             selectedPage === 'Authentication' ? <Content/> : <Content/>}
           </Box>
           
 

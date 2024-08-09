@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {UserContext} from './UserContext'
 
 
 function Copyright(props) {
@@ -34,6 +35,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const {setUser} = React.useContext(UserContext);
+
     const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -47,6 +50,8 @@ export default function SignIn() {
     .then((response) => {
         console.log(response);
         if (response.status === 200) {
+          const { id, role } = response.data;
+          setUser({ id, role }); // Save user ID and role in context
             navigate('/paperbase');
         } 
     })
