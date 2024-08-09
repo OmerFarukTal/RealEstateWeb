@@ -28,6 +28,7 @@ const categories = [
         active: true,
       },
       { id: 'Property', icon: <DnsRoundedIcon /> },
+      { id: 'My Properties', icon: <DnsRoundedIcon /> },
       { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
       { id: 'Hosting', icon: <PublicIcon /> },
       { id: 'Functions', icon: <SettingsEthernetIcon /> },
@@ -63,7 +64,11 @@ const itemCategory = {
 };
 
 export default function Navigator(props) {
-  const { ...other } = props;
+  const { onSelectPage, ...other } = props;
+
+  const handleItemClick = (page) => {
+    onSelectPage(page);
+  }
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -75,7 +80,7 @@ export default function Navigator(props) {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>Project Overview</ListItemText>
+          <ListItemText onClick={() => handleItemClick('Project Overview')}>Project Overview</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }}>
@@ -84,7 +89,7 @@ export default function Navigator(props) {
             </ListItem>
             {children.map(({ id: childId, icon, active }) => (
               <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
+                <ListItemButton selected={active} sx={item} onClick={() => handleItemClick(childId)}>
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText>{childId}</ListItemText>
                 </ListItemButton>

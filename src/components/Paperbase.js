@@ -8,6 +8,8 @@ import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
+import RealEstateList from './property/Property';
+import PropertyHeader from './property/PropertyHeader';
 
 function Copyright() {
   return (
@@ -170,9 +172,15 @@ export default function Paperbase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
+  const [selectedPage, setSelectedPage] = React.useState('Project Overview');
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handlePageChange = (page) => {
+    setSelectedPage(page);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -188,19 +196,24 @@ export default function Paperbase() {
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
+              onSelectPage={handlePageChange}
             />
           )}
 
           <Navigator
             PaperProps={{ style: { width: drawerWidth } }}
             sx={{ display: { sm: 'block', xs: 'none' } }}
+            onSelectPage={handlePageChange}
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
+          {selectedPage === "Property" ? <PropertyHeader onDrawerToggle={handleDrawerToggle}/> : <Header onDrawerToggle={handleDrawerToggle}/>}
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-            <Content />
+            
+            {selectedPage === 'Property' ? <RealEstateList /> : <Content />}
           </Box>
+          
+
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />
           </Box>
