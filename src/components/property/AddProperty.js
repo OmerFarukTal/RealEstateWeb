@@ -30,6 +30,7 @@ export default function AddProperty() {
   const [propertyTypes, setPropertyTypes] = useState([]);
   const [currencies, setCurrencies] = useState([]);
   const {user} = useContext(UserContext);
+  const [addedPropertyId, setAddedPropertyId] = useState(0);
 
   useEffect(() => {
     axios.get("http://localhost:5041/api/PropertyStatus/list")
@@ -107,10 +108,38 @@ export default function AddProperty() {
     })
     .then((response) => {
         console.log(response);
+        setAddedPropertyId(response.data.id)
+        console.log("Added property id ", addedPropertyId);
+
+        images.map(x => {
+          // Upload Images
+
+          console.log("images = ", x);
+          console.log(typeof x)
+
+          axios.post(`http://localhost:5041/api/Image`, {
+            name: "string",
+            source: x,
+            propertyId: response.data.id
+          })
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        });
+        
+
     })
     .catch((error) => {
         console.error(error);
-    })  
+    });
+
+    
+    
+    
+
   };
 
   return (

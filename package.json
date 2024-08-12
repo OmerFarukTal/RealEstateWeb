@@ -17,6 +17,7 @@
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.1",
     "react-leaflet": "^4.2.1",
+    "react-material-ui-carousel": "^3.4.2",
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
