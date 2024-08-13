@@ -6,6 +6,7 @@ export default function PropertyImageUpload({ images, setImages }) {
     const files = event.target.files;
     const imageList = Array.from(files).map((file) => URL.createObjectURL(file));
     setImages(imageList);
+    //setImages(files);
   };
 
   return (

@@ -7,11 +7,25 @@ import axios from 'axios';
 const PropertyDetail = ({ property2, setDetailButtonClicked }) => {
   // Sample data
   
-  const propertyImages = [];
-  property2.images.map((x) => {
-    propertyImages.push(x.source)
-  });
-  console.log("Image source exapmple ", propertyImages)
+  const [propertyImages, setPropertyImages] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:5041/api/PropertyImage?id=${property2.id}`)
+    .then((response) => {
+      console.log(response);
+      const tempList = [];
+      response.data.map((x) => {
+        tempList.push(x.source);
+      });
+      setPropertyImages(tempList);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+    console.log("Image source example ", propertyImages);
+  }, []);
+  
 
   const handleButtonClick = () => {
     console.log(typeof setDetailButtonClicked );
@@ -28,7 +42,10 @@ const PropertyDetail = ({ property2, setDetailButtonClicked }) => {
         {/* Image Carousel */}
         <Carousel>
           {propertyImages.map((photo, index) => (
-            <img key={index} src={photo} alt={`Property ${index}`} style={{ width: '100%', height: 'auto' }} />
+            <div>
+               <img key={index} src={photo} alt={`Property ${index}`} style={{ width: '100%', height: 'auto' }} />
+            </div>
+           
           ))}
         </Carousel>
         

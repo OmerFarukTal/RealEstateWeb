@@ -110,12 +110,14 @@ export default function AddProperty() {
         console.log(response);
         setAddedPropertyId(response.data.id)
         console.log("Added property id ", addedPropertyId);
+      
+        
 
         images.map(x => {
           // Upload Images
 
           console.log("images = ", x);
-          console.log(typeof x)
+          console.log(typeof x);
 
           axios.post(`http://localhost:5041/api/Image`, {
             name: "string",
