@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Grid, Button, Container } from '@mui/material';
-import PropertyCard from './PropertyCard';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import AddProperty from './AddProperty';
 import { UserContext } from '../sign-components/UserContext';
+import UserPropertyCard from './UserPropertyCard';
 
 const dummyProperty = {
     name : "naber",
@@ -79,7 +79,7 @@ const UserProperty = () => {
         <Grid container spacing={4}>
           {properties.map((property) => (
             <Grid item xs={12} sm={6} md={4} key={property.id}>
-              <PropertyCard property={property} />
+              <UserPropertyCard property={property} />
             </Grid>
           ))}
           

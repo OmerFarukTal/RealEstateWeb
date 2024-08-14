@@ -29,21 +29,13 @@ const categories = [
       },
       { id: 'Property', icon: <DnsRoundedIcon /> },
       { id: 'My Properties', icon: <DnsRoundedIcon /> },
-      { id: 'On Map', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      {
-        id: 'Machine learning',
-        icon: <SettingsInputComponentIcon />,
-      },
+      { id: 'On Map', icon: <PermMediaOutlinedIcon /> }
     ],
   },
   {
     id: 'Quality',
     children: [
-      { id: 'Analytics', icon: <SettingsIcon /> },
-      { id: 'Performance', icon: <TimerIcon /> },
-      { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
+      { id: 'Analytics', icon: <SettingsIcon /> }
     ],
   },
 ];

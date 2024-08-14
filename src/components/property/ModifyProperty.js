@@ -16,6 +16,8 @@ import PropertyImageUpload from './PropertyImageUpload';
 import PropertyImageUploadCopy from './PropertyImageUploadCopy';
 import { UserContext } from '../sign-components/UserContext';
 import axios from 'axios';
+import dayjs from 'dayjs';
+import Carousel from 'react-material-ui-carousel';
 
 const convertToBase64 = (file) => {
   console.log(file); // Log the file to verify it's a File object
@@ -27,7 +29,7 @@ const convertToBase64 = (file) => {
   });
 };
 
-export default function AddProperty() {
+export default function ModifyProperty({propertyToBeModified, setModifyButtonClicked}) {
   const [name, setName] = useState('');
   const [address, setAddress ] = useState('');
   const [description, setDescription] = useState('');
@@ -38,6 +40,11 @@ export default function AddProperty() {
   const [price, setPrice] = useState(0.0);
   const [startDate, setStartDate] = React.useState(null);
   const [endDate, setEndDate] = React.useState(null);
+
+  const [rawProperty, setRawProperty] = useState(null);
+  const [oldImages, setOldImages] = useState([]);
+
+
   const [propertyStatuses, setPropertyStatuses] = useState([]);
   const [propertyTypes, setPropertyTypes] = useState([]);
   const [currencies, setCurrencies] = useState([]);
@@ -86,6 +93,43 @@ export default function AddProperty() {
         console.error(error);
     });
 
+
+    axios.get(`http://localhost:5041/api/Property/raw?id=${propertyToBeModified.id}`)
+    .then((response) => {
+        if (response.status === 200) {
+          setName(response.data.name);
+          setAddress(response.data.adress);
+          setPrice(response.data.price);
+          setDescription(response.data.description);
+          setStatus(response.data.propertyStatusId);
+          setType(response.data.propertyTypeId);
+          setCurrency(response.data.currencyId);
+          setStartDate(dayjs(response.data.startDate));
+          setEndDate(dayjs(response.data.endDate));
+
+          setRawProperty(response.data);
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+
+    axios.get(`http://localhost:5041/api/PropertyImage?id=${propertyToBeModified.id}`)
+    .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          const tempList = [];
+          response.data.map((x) => {
+            tempList.push({source: `http://localhost:5041${x.source}`, id: x.id });
+          });
+          setOldImages(tempList);
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
 }, []);
 
   const handleSubmit = (event) => {
@@ -94,27 +138,29 @@ export default function AddProperty() {
     const date = new Date();
     console.log("User id", localStorage.getItem('user').id);
     console.log("To be submitted",  {
-        name: name,
-        description: description,
-        adress: address,
-        latitude: 0,
-        longitude: 0,
-        propertyTypeId: type,
-        propertyStatusId: status,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        price: price,
-        currencyId: currency,
-        creatorId: user?.id,
-        createdDate: date.toISOString()
+      id: propertyToBeModified.id,
+      name: name,
+      description: description,
+      adress: address,
+      latitude: rawProperty.latitude,
+      longitude: rawProperty.longitude,
+      propertyTypeId: type,
+      propertyStatusId: status,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      price: price,
+      currencyId: currency,
+      creatorId: user?.id,
+      createdDate: date.toISOString()
     });
 
-    axios.post(`http://localhost:5041/api/Property`, {
+    axios.put(`http://localhost:5041/api/Property`, {
+        id: propertyToBeModified.id,
         name: name,
         description: description,
         adress: address,
-        latitude: 0,
-        longitude: 0,
+        latitude: rawProperty.latitude,
+        longitude: rawProperty.longitude,
         propertyTypeId: type,
         propertyStatusId: status,
         startDate: startDate.toISOString(),
@@ -130,6 +176,10 @@ export default function AddProperty() {
         console.log("Added property id ", addedPropertyId);
 
         //
+        oldImages.forEach(image => {
+          axios.delete(`http://localhost:5041/api/Image?id=${image.id}`);
+        })
+
         images.forEach(async (image) => {
           const base64Image = await convertToBase64(image);
         
@@ -182,6 +232,17 @@ export default function AddProperty() {
       <Typography variant="h6" gutterBottom>
         Add New Property
       </Typography>
+      
+      <Carousel>
+        {oldImages.map((photo, index) => (
+          <div>
+              <img key={index} src={photo.source} alt={`Property ${index}`} style={{ width: '100%', height: 'auto' }} />
+          </div>
+          
+        ))}
+      </Carousel>
+
+
 
         {/* PropertyImageUpload is a custom component that you will create for handling image uploads */}
       <PropertyImageUploadCopy images={images} setImages={setImages} />
@@ -290,6 +351,14 @@ export default function AddProperty() {
       <Button type="submit" variant="contained" sx={{ mt: 2 }}>
         Submit
       </Button>
+
+      {/* Button to go back */}
+      <Box sx={{ mt: 4 }}>
+        <Button variant="contained" color="primary" onClick={() => setModifyButtonClicked(false)}>
+          Back to Listings
+        </Button>
+      </Box>
+
     </Box>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Box, Grid, Paper, Button } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
+import dayjs from 'dayjs';
 import axios from 'axios';
 
 
@@ -15,7 +16,7 @@ const PropertyDetail = ({ property2, setDetailButtonClicked }) => {
       console.log(response);
       const tempList = [];
       response.data.map((x) => {
-        tempList.push(x.source);
+        tempList.push(`http://localhost:5041${x.source}`);
       });
       setPropertyImages(tempList);
     })
@@ -57,16 +58,30 @@ const PropertyDetail = ({ property2, setDetailButtonClicked }) => {
 
         {/* Price */}
         <Typography variant="h6" sx={{ mt: 2 }}>
-          Price: ${property2.price.toLocaleString()}
+          {property2.price.toLocaleString()} {property2.currencyName}
+        </Typography>
+
+        {/* Creator */}
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          {property2.cretorName}
+        </Typography>
+
+        {/* Adress */}
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          {property2.adress}
         </Typography>
 
         {/* Start and End Date */}
         <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={6}>
-            
+            <Typography variant="body1">
+              Start Date: {new Date(property2.startDate).toLocaleDateString()}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-           
+            <Typography variant="body1">
+              End Date: {new Date(property2.endDate).toLocaleDateString()}
+            </Typography>
           </Grid>
         </Grid>
 

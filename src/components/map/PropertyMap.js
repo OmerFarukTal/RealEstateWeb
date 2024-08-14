@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
 
 const PropertyMap = () => {
     const [propertyList, setPropertyList] = useState([]);
-    const center = [51.505, -0.09];
+    const center = [39, 37];
 
 
     useEffect(() => {
@@ -31,18 +31,8 @@ const PropertyMap = () => {
 
     }, []);
 
-    const dummyProperties = [
-        {
-            lat: 52.505,
-            lng: -0.15,
-            name: "This name",
-            description: "This is the description we want",
-            price: 50
-        }
-    ];
-
     return (
-        <MapContainer center={center} zoom={13} style={{height: '500px', width: '100%'}}>
+        <MapContainer center={center} zoom={5} style={{height: '500px', width: '100%'}}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
