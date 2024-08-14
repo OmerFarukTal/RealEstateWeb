@@ -11,6 +11,7 @@ import Header from './Header';
 import RealEstateList from './property/Property';
 import PropertyHeader from './property/PropertyHeader';
 import UserProperty from './property/UserProperty';
+import PropertyMap from './map/PropertyMap';
 
 function Copyright() {
   return (
@@ -213,7 +214,8 @@ export default function Paperbase() {
             
             {selectedPage === 'Property' ? <RealEstateList /> :
              selectedPage === 'My Properties' ? <UserProperty/> :
-             selectedPage === 'Authentication' ? <Content/> : <Content/>}
+             selectedPage === 'Authentication' ? <Content/> :
+             selectedPage === 'On Map' ? <PropertyMap/> : <Content/>}
           </Box>
           
 

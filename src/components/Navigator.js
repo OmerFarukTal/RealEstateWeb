@@ -29,7 +29,7 @@ const categories = [
       },
       { id: 'Property', icon: <DnsRoundedIcon /> },
       { id: 'My Properties', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
+      { id: 'On Map', icon: <PermMediaOutlinedIcon /> },
       { id: 'Hosting', icon: <PublicIcon /> },
       { id: 'Functions', icon: <SettingsEthernetIcon /> },
       {
