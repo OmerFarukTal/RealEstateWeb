@@ -71,6 +71,15 @@ const PropertyDetail = ({ property2, setDetailButtonClicked }) => {
           {property2.adress}
         </Typography>
 
+        <Typography variant="h6" component="div" color="text.primary">
+          {property2.propertyTypeName}
+        </Typography>
+
+        <Typography variant="h6" component="div" color="text.primary">
+          {property2.propertyStatusName}
+        </Typography>
+
+
         {/* Start and End Date */}
         <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={6}>
@@ -84,6 +93,13 @@ const PropertyDetail = ({ property2, setDetailButtonClicked }) => {
             </Typography>
           </Grid>
         </Grid>
+
+        <Grid>
+          <Typography variant="body1">
+            Created Date: {new Date(property2.createdDate).toLocaleDateString()}
+          </Typography>
+        </Grid>
+
 
         {/* Button to go back */}
         <Box sx={{ mt: 4 }}>
