@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const PropertyCard = ({ property }) => {
   const {t, i18n} = useTranslation();
+  
   const navigate = useNavigate("");
   const [detailButtonClicked, setDetailButtonClicked] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState([]);
