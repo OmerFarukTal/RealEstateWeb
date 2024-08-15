@@ -13,6 +13,7 @@ import PropertyHeader from './property/PropertyHeader';
 import UserProperty from './property/UserProperty';
 import PropertyMap from './map/PropertyMap';
 import PropertySelective from './property/PropertySelective';
+import UserPropertySelective from './property/UserPropertySelective';
 
 function Copyright() {
   return (
@@ -214,7 +215,7 @@ export default function Paperbase() {
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             
             {selectedPage === 'Property' ? <PropertySelective /> :
-             selectedPage === 'My Properties' ? <UserProperty/> :
+             selectedPage === 'My Properties' ? <UserPropertySelective/> :
              selectedPage === 'Authentication' ? <Content/> :
              selectedPage === 'On Map' ? <PropertyMap/> : <Content/>}
           </Box>
