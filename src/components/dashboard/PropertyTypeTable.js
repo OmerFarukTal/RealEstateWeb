@@ -15,8 +15,11 @@ import {
   TableRow
 } from '@mui/material';
 import axios from 'axios'
+import { useTranslation } from 'react-i18next';
 
 export default function PropertyTypeTable() {
+  const {t, i18n} = useTranslation();
+
   const [propertyTypes, setPropertyTypes] = useState([]);
   const [propertyTypeName, setPropertyTypeName] = useState("");
   
@@ -73,7 +76,7 @@ export default function PropertyTypeTable() {
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Typography variant="h4" gutterBottom>
-          Admin Dashboard - Property Types
+          {t("All Types")}
         </Typography>
 
         <Paper sx={{ p: 2 }}>

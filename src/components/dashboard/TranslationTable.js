@@ -15,8 +15,11 @@ import {
   TableRow
 } from '@mui/material';
 import axios from 'axios'
+import { useTranslation } from 'react-i18next';
 
 export default function TranslationTable() {
+  const {t, i18n} = useTranslation();
+
   const [translation, setTranslation] = useState([]);
 
   const [translationKey, setTranslationKey] = useState("");
@@ -84,7 +87,7 @@ export default function TranslationTable() {
         
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Typography variant="h4" gutterBottom>
-          Admin Dashboard - Translation
+          {t("All Translations")}
         </Typography>
 
         <Paper sx={{ p: 2 }}>

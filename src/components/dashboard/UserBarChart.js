@@ -1,31 +1,70 @@
-import { Box, Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Box, Container, Grid } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
-
-const data = [
-  { name: '8 AM', residential: 5, commercial: 2 },
-  { name: '10 AM', residential: 10, commercial: 3 },
-  { name: '12 PM', residential: 8, commercial: 4 },
-  { name: '2 PM', residential: 7, commercial: 6 },
-  { name: '4 PM', residential: 4, commercial: 1 },
-  { name: '6 PM', residential: 6, commercial: 2 },
-];
+import dayjs from 'dayjs';
+import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 
 const UserBarChart = () => {
+  const {t, i18n} = useTranslation();
+
+  const [chartData, setChartData] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from your Web API
+    axios.get('http://localhost:5041/api/Property/list')
+      .then(response => {
+        const properties = response.data;
+        // Process the data
+        const groupedData = groupPropertiesByDate(properties);
+        setChartData(groupedData);
+      })
+      .catch(error => {
+        console.error('Error fetching properties:', error);
+      });
+  }, []);
+
+  // Function to group properties by creation date
+  const groupPropertiesByDate = (properties) => {
+    const grouped = properties.reduce((acc, property) => {
+      const date = new Date(property.createdDate).toLocaleDateString();
+      console.log("Valid date : ", property.createdDate); // Format date as needed
+      if (!acc[date]) {
+        acc[date] = 0;
+      }
+      acc[date]++;
+      return acc;
+    }, {});
+
+    // Convert the grouped object into an array for the chart
+    return Object.keys(grouped).map(date => ({
+      name: date,
+      count: grouped[date],
+    }));
+  };
+
   return (
-    <Box>
-        <Grid container spacing={2} justifyContent="center">
-            <BarChart width={600} height={300} data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="residential" fill="#8884d8" />
-                <Bar dataKey="commercial" fill="#82ca9d" />
-            </BarChart>
-        </Grid>
-    </Box>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          {t("Daily Property Added")}
+        </Typography>
+
+        <Box>
+            <Grid container spacing={2} justifyContent="center">
+                <BarChart width={600} height={300} data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="count" fill="#8884d8" />
+                </BarChart>
+            </Grid>
+        </Box>
+
+    </Container>
+
     
   );
 };

@@ -15,11 +15,14 @@ import {
   TableRow
 } from '@mui/material';
 import axios from 'axios'
+import { useTranslation } from 'react-i18next';
 
 
 
 
 function RoleTable() {
+  const {t, i18n} = useTranslation();
+
     const [roles, setRoles] = useState([]);
     const [roleName, setRoleName] = useState("");
   
@@ -75,7 +78,7 @@ function RoleTable() {
     return (
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Typography variant="h4" gutterBottom>
-          Admin Dashboard - Roles
+          {t("All Roles")}
         </Typography>
 
         <Paper sx={{ p: 2 }}>

@@ -44,8 +44,17 @@ i18n
           "View Details": "View Details",
           "Contact Agent": "Contact Agent",
           "Edit Property": "Edit Property",
-          "Delete Property": "Delete Property"
-        
+          "Delete Property": "Delete Property",
+
+          "Property Type and Statuses Percentage": "Property Type and Statuses Percentage",
+          "Daily Property Added": "Daily Property Added",
+          "All Roles" : "All Roles",
+          "All Translations": "All Translations",
+
+          "Add": "Add",
+          "Delete": "Delete",
+          "Edit": "Edit"
+
         }
       },
       tr: {
@@ -79,7 +88,16 @@ i18n
           "View Details": "Detayları Gör",
           "Contact Agent": "Mülk Sahibi ile İrtibat",
           "Edit Property": "Mülkü Güncelle",
-          "Delete Property": "Mülkü Sil"
+          "Delete Property": "Mülkü Sil",
+
+          "Property Type and Statuses Percentage" : "Mülk Tipleri ve Durumları Yüzdelikleri",
+          "Daily Property Added": "Günlük Eklenen Mülkler",
+          "All Roles" : "Bütün Roller",
+          "All Translations": "Bütün Çevirmeler",
+
+          "Add": "Ekle",
+          "Delete": "Sil",
+          "Edit": "Değiştir"
         }
       }
     }
