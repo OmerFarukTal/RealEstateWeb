@@ -17,28 +17,9 @@ import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputCompone
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
+import { UserContext } from './sign-components/UserContext';
 
-const categories = [
-  {
-    id: 'Build',
-    children: [
-      {
-        id: 'Authentication',
-        icon: <PeopleIcon />,
-        active: true,
-      },
-      { id: 'Property', icon: <DnsRoundedIcon /> },
-      { id: 'My Properties', icon: <DnsRoundedIcon /> },
-      { id: 'On Map', icon: <PermMediaOutlinedIcon /> }
-    ],
-  },
-  {
-    id: 'Quality',
-    children: [
-      { id: 'Analytics', icon: <SettingsIcon /> }
-    ],
-  },
-];
+
 
 const item = {
   py: '2px',
@@ -57,6 +38,32 @@ const itemCategory = {
 
 export default function Navigator(props) {
   const { onSelectPage, ...other } = props;
+  const {user} = React.useContext(UserContext);
+  console.log("USER Role", user?.roleName);
+
+  const categories = [
+    {
+      id: 'Build',
+      children: [
+        user.roleName === 'admin' && {
+          id: 'Dashboard',
+          icon: <PeopleIcon />,
+          active: true,
+        },
+        { id: 'Property', icon: <DnsRoundedIcon /> },
+        { id: 'My Properties', icon: <DnsRoundedIcon /> },
+        { id: 'On Map', icon: <PermMediaOutlinedIcon /> }
+      ].filter(Boolean),
+    },
+    {
+      id: 'Quality',
+      children: [
+        { id: 'Analytics', icon: <SettingsIcon /> }
+      ],
+    },
+  ];
+
+
 
   const handleItemClick = (page) => {
     onSelectPage(page);

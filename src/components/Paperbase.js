@@ -216,7 +216,7 @@ export default function Paperbase() {
             
             {selectedPage === 'Property' ? <PropertySelective /> :
              selectedPage === 'My Properties' ? <UserPropertySelective/> :
-             selectedPage === 'Authentication' ? <Content/> :
+             selectedPage === 'Dashboard' ? <Content/> :
              selectedPage === 'On Map' ? <PropertyMap/> : <Content/>}
           </Box>
           

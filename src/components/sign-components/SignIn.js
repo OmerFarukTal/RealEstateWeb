@@ -50,8 +50,8 @@ export default function SignIn() {
     .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          const { id, role } = response.data;
-          setUser({ id, role }); // Save user ID and role in context
+          const { id, roleName } = response.data;
+          setUser({ id, roleName }); // Save user ID and role in context
             navigate('/paperbase');
         } 
     })
