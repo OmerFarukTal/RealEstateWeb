@@ -37,11 +37,6 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const {t, i18n} = useTranslation();
 
-  React.useEffect(() => {
-    i18n.changeLanguage("en");
-  }, [])
-
-
 
     const navigate = useNavigate();
   const handleSubmit = (event) => {

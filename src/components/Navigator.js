@@ -18,6 +18,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
 import { UserContext } from './sign-components/UserContext';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -37,6 +38,7 @@ const itemCategory = {
 };
 
 export default function Navigator(props) {
+  const {t, i18n} = useTranslation();
   const { onSelectPage, ...other } = props;
   const {user} = React.useContext(UserContext);
   console.log("USER Role", user?.roleName);
@@ -73,7 +75,7 @@ export default function Navigator(props) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          Paperbase
+          {t('Real Estate')}
         </ListItem>
         <ListItem sx={{ ...item, ...itemCategory }}>
           <ListItemIcon>
@@ -90,7 +92,7 @@ export default function Navigator(props) {
               <ListItem disablePadding key={childId}>
                 <ListItemButton selected={active} sx={item} onClick={() => handleItemClick(childId)}>
                   <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText>{childId}</ListItemText>
+                  <ListItemText>{t(childId)}</ListItemText>
                 </ListItemButton>
               </ListItem>
             ))}

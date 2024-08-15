@@ -6,8 +6,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 const PropertySelective = () => {
+    const {t, i18n} = useTranslation();
+
     const [properties, setProperties] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
@@ -103,7 +106,7 @@ const PropertySelective = () => {
                         displayEmpty
                     >
                         <MenuItem value={0}>
-                            <em>All Types</em>
+                            <em>{t('All Types')}</em>
                         </MenuItem>
                         {propertyTypeList.map((type) => (
                             <MenuItem key={type.id} value={type.id}>
@@ -123,7 +126,7 @@ const PropertySelective = () => {
                         displayEmpty
                     >
                         <MenuItem value={0}>
-                            <em>All Status</em>
+                            <em>{t('All Statuses')}</em>
                         </MenuItem>
                         {propertyStatusList.map((status) => (
                             <MenuItem key={status.id} value={status.id}>
@@ -143,7 +146,7 @@ const PropertySelective = () => {
                         displayEmpty
                     >
                         <MenuItem value={0}>
-                            <em>All Currencies</em>
+                            <em>{t('All Currencies')}</em>
                         </MenuItem>
                         {currencyList.map((curr) => (
                             <MenuItem key={curr.id} value={curr.id}>
@@ -155,7 +158,7 @@ const PropertySelective = () => {
                 
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        label="Lower Price"
+                        label={t("Lower Price")}
                         type="number"
                         value={lowerPrice}
                         onChange={(e) => setLowerPrice(e.target.value)}
@@ -165,7 +168,7 @@ const PropertySelective = () => {
 
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        label="Upper Price"
+                        label={t("Upper Price")}
                         type="number"
                         value={upperPrice}
                         onChange={(e) => setUpperPrice(e.target.value)}
@@ -177,7 +180,7 @@ const PropertySelective = () => {
                     {/* Start Date Filter */}
                     <Grid item xs={12} sm={6} md={6}>
                         <DatePicker
-                            label="Start Date"
+                            label={t("Start Date")}
                             value={startDate}
                             onChange={(newValue) => setStartDate(newValue)}
                             renderInput={(params) => <TextField {...params} fullWidth />}
@@ -186,7 +189,7 @@ const PropertySelective = () => {
                     {/* End Date Filter */}
                     <Grid item xs={12} sm={6} md={6}>
                         <DatePicker
-                            label="End Date"
+                            label={t("End Date")}
                             value={endDate}
                             onChange={(newValue) => setEndDate(newValue)}
                             renderInput={(params) => <TextField {...params} fullWidth />}

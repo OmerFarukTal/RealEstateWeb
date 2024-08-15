@@ -39,11 +39,6 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const {t, i18n} = useTranslation();
 
-  React.useEffect(() => {
-    i18n.changeLanguage("en");
-  }, [])
-  
-
   const {setUser} = React.useContext(UserContext);
 
     const navigate = useNavigate();

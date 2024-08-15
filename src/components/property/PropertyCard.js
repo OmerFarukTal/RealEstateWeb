@@ -3,9 +3,10 @@ import { Card, CardContent, CardMedia, Typography, Grid, CardActions, Button } f
 import { useNavigate } from 'react-router-dom';
 import PropertyDetail from './PropertyDetail';
 import axios from 'axios';
-
+import { useTranslation } from 'react-i18next';
 
 const PropertyCard = ({ property }) => {
+  const {t, i18n} = useTranslation();
   const navigate = useNavigate("");
   const [detailButtonClicked, setDetailButtonClicked] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState([]);
@@ -63,8 +64,8 @@ const PropertyCard = ({ property }) => {
         <CardActions>
           <Button variant="outlined" 
             color="primary" 
-            onClick={(event) => handleButtonClick(event, property.id)}>View Details</Button>
-          <Button size="small">Contact Agent</Button>
+            onClick={(event) => handleButtonClick(event, property.id)}>{t("View Details")}</Button>
+          <Button size="small">{t("Contact Agent")}</Button>
         </CardActions>
       </Card>
     );

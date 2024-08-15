@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import PropertyDetail from './PropertyDetail';
 import axios from 'axios';
 import ModifyProperty from './ModifyProperty';
+import { useTranslation } from 'react-i18next';
 
 const UserPropertyCard = ({ property }) => {
+  const {t, i18n} = useTranslation();
+
   const navigate = useNavigate("");
   const [detailButtonClicked, setDetailButtonClicked] = useState(false);
   const [modifyButtonClicked, setModifyButtonClicked] = useState(false);
@@ -94,13 +97,13 @@ const UserPropertyCard = ({ property }) => {
         <CardActions>
           <Button variant="outlined" 
             color="primary" 
-            onClick={(event) => handleButtonClick(event, property.id)}>View Details</Button>
+            onClick={(event) => handleButtonClick(event, property.id)}>{t("View Details")}</Button>
           <Button variant="outlined" 
             color="primary" 
-            onClick={(event) => setModifyButtonClicked(true)}>Edit Property</Button>
+            onClick={(event) => setModifyButtonClicked(true)}>{t("Edit Property")}</Button>
           <Button variant="outlined" 
             color="primary" 
-            onClick={(event) => handleDeleteButtonClick(event, property.id)}>Delete Property</Button>   
+            onClick={(event) => handleDeleteButtonClick(event, property.id)}>{t("Delete Property")}</Button>   
         </CardActions>
       </Card>
     );
