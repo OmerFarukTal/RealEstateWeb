@@ -15,6 +15,7 @@ import PropertyMap from './map/PropertyMap';
 import PropertySelective from './property/PropertySelective';
 import UserPropertySelective from './property/UserPropertySelective';
 import SignHeader from './sign-components/SignHeader';
+import { UserContext } from './sign-components/UserContext';
 
 function Copyright() {
   return (
@@ -174,10 +175,12 @@ theme = {
 const drawerWidth = 256;
 
 export default function Paperbase() {
+  const {user} = React.useContext(UserContext);
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const [selectedPage, setSelectedPage] = React.useState('Project Overview');
+  const [selectedPage, setSelectedPage] = React.useState('Property');
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -217,8 +220,8 @@ export default function Paperbase() {
             
             {selectedPage === 'Property' ? <PropertySelective /> :
              selectedPage === 'My Properties' ? <UserPropertySelective/> :
-             selectedPage === 'Dashboard' ? <Content/> :
-             selectedPage === 'On Map' ? <PropertyMap/> : <Content/>}
+             selectedPage === 'Dashboard' && user.roleName === "admin" ? <Content/> :
+             selectedPage === 'On Map' ? <PropertyMap/> : <PropertySelective/>}
           </Box>
           
 
