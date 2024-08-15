@@ -14,6 +14,7 @@ import UserProperty from './property/UserProperty';
 import PropertyMap from './map/PropertyMap';
 import PropertySelective from './property/PropertySelective';
 import UserPropertySelective from './property/UserPropertySelective';
+import SignHeader from './sign-components/SignHeader';
 
 function Copyright() {
   return (
@@ -186,7 +187,7 @@ export default function Paperbase() {
     setSelectedPage(page);
   }
 
-  return (
+  return (   
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex', minHeight: '100vh' }}>
         <CssBaseline />

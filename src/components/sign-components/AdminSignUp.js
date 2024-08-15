@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import SignHeader from './SignHeader';
 
 function Copyright(props) {
   return (
@@ -33,6 +35,13 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function AdminSignUp() {
+  const {t, i18n} = useTranslation();
+
+  React.useEffect(() => {
+    i18n.changeLanguage("en");
+  }, []);
+
+
     const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -67,7 +76,9 @@ export default function AdminSignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <div>
+      <SignHeader/>
+      <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -82,7 +93,7 @@ export default function AdminSignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Admin Sign up
+            {t('Admin Sign up')}
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -93,7 +104,7 @@ export default function AdminSignUp() {
                   required
                   fullWidth
                   id="username"
-                  label="User Name"
+                  label={t("User Name")}
                   autoFocus
                 />
               </Grid>
@@ -103,7 +114,7 @@ export default function AdminSignUp() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label={t("Email Address")}
                   name="email"
                   autoComplete="email"
                 />
@@ -113,7 +124,7 @@ export default function AdminSignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label={t("Password")}
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -124,15 +135,9 @@ export default function AdminSignUp() {
                   required
                   fullWidth
                   name="admin-credential"
-                  label="Admin Credential"
+                  label={t("Admin Credential")}
                   type="password"
                   id="admin-credential"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>
@@ -142,12 +147,12 @@ export default function AdminSignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              {t("Sign up")}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body2">
-                  Already have an account? Sign in
+                  {t("Already have an account? Sign in")}
                 </Link>
               </Grid>
             </Grid>
@@ -156,5 +161,9 @@ export default function AdminSignUp() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+
+
+    </div>
+    
   );
 }

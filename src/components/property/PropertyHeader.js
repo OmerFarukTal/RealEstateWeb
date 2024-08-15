@@ -14,11 +14,17 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 function PropertyHeader(props) {
   const { onDrawerToggle } = props;
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <React.Fragment>
@@ -35,36 +41,13 @@ function PropertyHeader(props) {
                 <MenuIcon />
               </IconButton>
             </Grid>
-            <Grid item xs />
-            <Grid item>
-              <Link
-                href="/"
-                variant="body2"
-                sx={{
-                  textDecoration: 'none',
-                  color: lightColor,
-                  '&:hover': {
-                    color: 'common.white',
-                  },
-                }}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Go to docs
-              </Link>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Alerts • No alerts">
-                <IconButton color="inherit">
-                  <NotificationsIcon />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <IconButton color="inherit" sx={{ p: 0.5 }}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
-              </IconButton>
-            </Grid>
+            <Grid item xs />           
+            <Button color="inherit" onClick={() => changeLanguage('en')}>
+              English
+            </Button>
+            <Button color="inherit" onClick={() => changeLanguage('tr')}>
+              Türkçe
+            </Button>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -81,23 +64,6 @@ function PropertyHeader(props) {
               <Typography color="inherit" variant="h5" component="h1">
                 Dashboard
               </Typography>
-            </Grid>
-            <Grid item>
-              <Button
-                sx={{ borderColor: lightColor }}
-                variant="outlined"
-                color="inherit"
-                size="small"
-              >
-                Web setup
-              </Button>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Help">
-                <IconButton color="inherit">
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
             </Grid>
           </Grid>
         </Toolbar>
