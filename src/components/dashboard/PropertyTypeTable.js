@@ -58,6 +58,25 @@ export default function PropertyTypeTable() {
     });
   }
 
+  const handleEditType = (event, idToEdit) => {
+    event.preventDefault();
+    axios.put("http://localhost:5041/api/PropertyType", {
+      id: idToEdit,
+      name: propertyTypeName
+    })
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+      console.error(error);
+    })
+    .finally(() => {
+      setReloadDashboard(true);
+      setPropertyTypeName("");
+    });
+  }
+
+
   const handleDeleteType = (event, typeId) => {
     event.preventDefault();
     axios.delete(`http://localhost:5041/api/PropertyType?id=${typeId}`)
@@ -95,7 +114,7 @@ export default function PropertyTypeTable() {
                     <TableCell>{type.id}</TableCell>
                     <TableCell>{type.name}</TableCell>
                     <TableCell>
-                      <Button variant="contained" color="primary" size="small">
+                      <Button variant="contained" color="primary" size="small" onClick={(event) => handleEditType(event, type.id)}>
                         Edit
                       </Button>
                       <Button variant="contained" color="secondary" size="small" sx={{ ml: 2 }} onClick={(event) => handleDeleteType(event, type.id)}>

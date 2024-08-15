@@ -60,6 +60,24 @@ function RoleTable() {
           setRoleName("");
         });
       }
+
+      const handleEditRole = (event, idToEdit) => {
+        event.preventDefault();
+        axios.put("http://localhost:5041/api/Role", {
+          id: idToEdit,
+          name: roleName
+        })
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.error(error);
+        })
+        .finally(() => {
+          setReloadDashboard(true);
+          setRoleName("");
+        });
+      }
     
       const handleDeleteRole = (event, currencyId) => {
         event.preventDefault();
@@ -97,7 +115,7 @@ function RoleTable() {
                     <TableCell>{type.id}</TableCell>
                     <TableCell>{type.name}</TableCell>
                     <TableCell>
-                      <Button variant="contained" color="primary" size="small">
+                      <Button variant="contained" color="primary" size="small" onClick={(event) => handleEditRole(event, type.id)}>
                         Edit
                       </Button>
                       <Button variant="contained" color="secondary" size="small" sx={{ ml: 2 }} onClick={(event) => handleDeleteRole(event, type.id)}>

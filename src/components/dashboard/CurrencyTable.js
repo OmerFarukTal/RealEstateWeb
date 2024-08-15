@@ -65,6 +65,27 @@ function CurrencyTable() {
     });
   }
 
+  const handleEditCurrency = (event, idToEdit) => {
+    event.preventDefault();
+    console.log("BASILDIM");
+    axios.put("http://localhost:5041/api/Currency", {
+      id: idToEdit,
+      name: currencyName,
+      code: currencyCode
+    })
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+      console.error(error);
+    })
+    .finally(() => {
+      setReloadDashboard(true);
+      setCurrencyCode("");
+      setCurrencyName("");
+    });
+  }
+
   const handleDeleteCurrency = (event, currencyId) => {
     event.preventDefault();
     axios.delete(`http://localhost:5041/api/Currency?id=${currencyId}`)
@@ -103,7 +124,7 @@ function CurrencyTable() {
                     <TableCell>{type.name}</TableCell>
                     <TableCell>{type.code}</TableCell>
                     <TableCell>
-                      <Button variant="contained" color="primary" size="small">
+                      <Button variant="contained" color="primary" size="small" onClick={(event) => handleEditCurrency(event, type.id)}>
                         Edit
                       </Button>
                       <Button variant="contained" color="secondary" size="small" sx={{ ml: 2 }}  onClick={(event) => handleDeleteCurrency(event, type.id)}>
