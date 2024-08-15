@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import PropertyDetail from './PropertyDetail';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import UserDetailCard from '../user/UserDetailCard';
 
 const PropertyCard = ({ property }) => {
   const {t, i18n} = useTranslation();
   
   const navigate = useNavigate("");
   const [detailButtonClicked, setDetailButtonClicked] = useState(false);
+  const [contactButtonClicked, setContactButtonClicked] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState([]);
 
   useEffect(() => {
@@ -33,6 +35,18 @@ const PropertyCard = ({ property }) => {
     event.preventDefault();
     setDetailButtonClicked(true);
   };
+
+  const handleContactButton = (event, id) => {
+    event.preventDefault();
+    setContactButtonClicked(true);
+  };
+
+  if (contactButtonClicked) {
+    return <UserDetailCard
+      property2={property}
+      setDetailButtonClicked={setContactButtonClicked}
+    />
+  }
 
   if (detailButtonClicked) {
     return <PropertyDetail
@@ -66,7 +80,9 @@ const PropertyCard = ({ property }) => {
           <Button variant="outlined" 
             color="primary" 
             onClick={(event) => handleButtonClick(event, property.id)}>{t("View Details")}</Button>
-          <Button size="small">{t("Contact Agent")}</Button>
+          <Button size="small"
+            onClick={(event) => handleContactButton(event, property.id)}
+          >{t("Contact Agent")}</Button>
         </CardActions>
       </Card>
     );
