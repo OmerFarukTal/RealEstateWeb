@@ -32,31 +32,37 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function AdminSignUp() {
     const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    axios.post("http://localhost:5041/api/User/sign",
-        {
-            userName: data.get('username'),
-            password: data.get('password'),
-            roleId: 2,
-            email: data.get('email')
-        }
-    )
-    .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-            navigate('/signin');
-        } 
+    axios.get(`http://localhost:5041/api/AdminCredential?credentialToCheck=${data.get('admin-credential')}`)
+    .then(response => {
+      if (response.status === 200) {
+        axios.post("http://localhost:5041/api/User/sign",
+          {
+              userName: data.get('username'),
+              password: data.get('password'),
+              roleId: 1,
+              email: data.get('email')
+          }
+        )
+        .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                navigate('/signin');
+            } 
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+      }
     })
-    .catch((error) => {
-        console.error(error);
-    });
-
-    
+    .catch(error => {
+      console.error(error)
+    })   
 
   };
 
@@ -76,7 +82,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Admin Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -111,6 +117,16 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="admin-credential"
+                  label="Admin Credential"
+                  type="password"
+                  id="admin-credential"
                 />
               </Grid>
               <Grid item xs={12}>
